@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Environment secrets
+.env
+
+# Build output
+dist/
+.next/
+
+# Prisma generated client (auto-regenerated via `npx prisma generate`)
+**/generated/
+
+# Database files (local dev only)
+**/dev.db
+**/dev.db-journal
+
+# OS/editor junk
+.DS_Store
+*.log
+
+# Editor/AI-tool generated folders (not part of the actual project)
+.agents/
+.claude/
+.windsurf/
+skills-lock.json
