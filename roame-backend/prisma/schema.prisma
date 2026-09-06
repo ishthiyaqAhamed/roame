@@ -46,4 +46,100 @@ model User {
 
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
+
+  vehicles Vehicle[]
+}
+
+enum VehicleCategory {
+  CAR_VAN
+  LUXURY_WEDDING
+  MOTORBIKE
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  HYBRID
+  ELECTRIC
+}
+
+enum PricingMode {
+  PER_DAY
+  PER_WEEK
+  PER_MONTH
+  PER_KM_PACKAGE
+  PER_EVENT
+}
+
+enum FuelPolicy {
+  FULL_TO_FULL
+  OWNER_PROVIDES
+}
+
+enum InsuranceType {
+  COMPREHENSIVE
+  THIRD_PARTY
+}
+
+enum VehicleStatus {
+  PENDING_REVIEW
+  ACTIVE
+  SUSPENDED
+  INACTIVE
+}
+
+model Vehicle {
+  id      String @id @default(uuid())
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  category VehicleCategory
+
+  make  String
+  model String
+  year  Int
+
+  plateNumber  String
+  transmission Transmission?
+  fuelType     FuelType?
+
+  locationLat      Float?
+  locationLng      Float?
+  locationDistrict String?
+
+  pricingMode      PricingMode
+  pricePerDay      Float?
+  kmIncludedPerDay Int?
+  pricePerExtraKm  Float?
+  fuelPolicy       FuelPolicy?
+
+  // Luxury & Wedding specific
+  chauffeurIncluded   Boolean?
+  decorationAvailable Boolean?
+  minimumBookingHours Int?
+
+  // Motorbike specific
+  helmetsIncluded      Int?
+  engineCC             Int?
+  requiredLicenseClass String?
+  minimumRiderAge      Int?
+
+  revenueLicenseDocUrl      String?
+  vehicleRegistrationDocUrl String?
+  insuranceDocUrl           String?
+  insuranceExpiryDate       DateTime?
+  insuranceType             InsuranceType?
+
+  baselinePhotosJson String? // JSON-encoded array of photo URLs
+
+  status        VehicleStatus @default(PENDING_REVIEW)
+  averageRating Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
