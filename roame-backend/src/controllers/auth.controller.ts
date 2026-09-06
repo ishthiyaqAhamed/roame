@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { prisma } from "../db";
 import { signToken } from "../utils/jwt";
+import { AuthRequest } from "../middleware/auth.middleware";
 
 export async function register(req: Request, res: Response) {
   try {
@@ -79,5 +80,26 @@ export async function login(req: Request, res: Response) {
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ error: "Something went wrong while logging in" });
+  }
+}
+export async function getMe(req: AuthRequest, res: Response) {
+  try {
+    const user = await prisma.user.findUnique({ where: { id: req.userId } });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({
+      id: user.id,
+      fullName: user.fullName,
+      email: user.email,
+      role: user.role,
+      verificationStatus: user.verificationStatus,
+      profilePhotoUrl: user.profilePhotoUrl,
+    });
+  } catch (error) {
+    console.error("Get me error:", error);
+    res.status(500).json({ error: "Something went wrong" });
   }
 }
