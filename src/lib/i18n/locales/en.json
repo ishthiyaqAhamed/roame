@@ -1,0 +1,52 @@
+{
+  "nav": {
+    "explore": "Fleet",
+    "categories": "Categories",
+    "howItWorks": "Trust & Safety",
+    "listVehicle": "Host a Vehicle",
+    "login": "Sign In",
+    "register": "Join Roame",
+    "dashboard": "Dashboard",
+    "bookings": "My Trips",
+    "logout": "Sign Out"
+  },
+  "hero": {
+    "badge": "Sri Lanka's Premier Vehicle Marketplace",
+    "titlePrefix": "Curated Journeys across",
+    "titleHighlight": "Sri Lanka",
+    "subtitle": "Direct access to verified private fleets — from everyday island cruisers to chauffeured luxury classics. Backed by mandatory comprehensive insurance and escrow protection.",
+    "searchTabAll": "All Vehicles",
+    "searchTabCars": "Cars & Vans",
+    "searchTabLuxury": "Luxury & Wedding",
+    "searchTabBikes": "Motorbikes & Scooters",
+    "districtPlaceholder": "Where in Sri Lanka? (e.g. Colombo, Galle, Kandy)",
+    "pickupDate": "Pickup Date",
+    "returnDate": "Return Date",
+    "searchBtn": "Discover Vehicles",
+    "verifiedBadge": "100% Comprehensive Insurance Guarantee"
+  },
+  "valueProps": {
+    "tag": "The Roame Standard",
+    "title": "Built on uncompromising trust & ceylon hospitality",
+    "prop1Title": "Mandatory Comprehensive Insurance",
+    "prop1Desc": "Every listed vehicle must hold active comprehensive insurance. In the rare event of an incident, renters are only responsible for the policy excess deductible.",
+    "prop2Title": "4-Angle Inspection Handovers",
+    "prop2Desc": "Digital pickup and return logs with high-resolution photographic audit trail, fuel calibration, and odometer verification signed by both parties.",
+    "prop3Title": "Verified Identity & Blacklist Protection",
+    "prop3Desc": "Government NIC and driving license KYC checks ensure that only respectful renters and credible owners interact on the platform.",
+    "prop4Title": "Escrow Security Deposit Hold",
+    "prop4Desc": "Security deposits are held in a safe digital escrow and released automatically upon clean inspection completion."
+  },
+  "categories": {
+    "carsTitle": "Cars & Vans",
+    "carsDesc": "Self-drive hatchbacks, sedans, and passenger vans with flexible per-day or mileage package rates for coastal getaways or family travel.",
+    "luxuryTitle": "Luxury & Wedding Chauffeur",
+    "luxuryDesc": "Distinguished Mercedes-Benz, vintage convertibles, and ceremonial limousines driven by professional chauffeurs with bespoke floral packages.",
+    "bikesTitle": "Motorbikes & Scooters",
+    "bikesDesc": "Agile scooters and road bikes equipped with safety helmets to navigate Sri Lanka's scenic hill tracks and beach towns."
+  },
+  "footer": {
+    "tagline": "The trusted peer-to-peer automotive collective of Sri Lanka.",
+    "rights": "All rights reserved. Designed & built for the roads of Sri Lanka."
+  }
+}
