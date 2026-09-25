@@ -6,16 +6,10 @@ import {
   Star,
   MapPin,
   ShieldCheck,
-  Fuel,
-  Users,
-  Calendar,
-  Sparkles,
   ArrowLeft,
   CheckCircle2,
   Clock,
-  Car,
   Camera,
-  AlertCircle,
   Lock,
 } from "lucide-react";
 
@@ -95,7 +89,7 @@ export default function VehicleDetailPage({ params }: PageParams) {
       {/* Back Link */}
       <Link
         href="/vehicles"
-        className="inline-flex items-center gap-2 text-xs text-[#8E95A5] hover:text-[#D4AF37] mb-6 transition-colors"
+        className="inline-flex items-center gap-2 text-xs text-[var(--muted)] hover:text-[var(--gold)] mb-6 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Back to Fleet Catalog</span>
@@ -125,10 +119,10 @@ export default function VehicleDetailPage({ params }: PageParams) {
 
           {/* Title and Specs Header */}
           <div className="glass-card-gold rounded-3xl p-6 sm:p-8">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[var(--border-subtle)] pb-6 mb-6">
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#D4AF37]/10 text-[#F3E5AB] border border-[#D4AF37]/30">
+                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[var(--gold)]/10 text-[var(--gold)] border border-[var(--border-gold)]">
                     Luxury & Wedding
                   </span>
                   <div className="bg-[#0A3A2F]/90 text-[#6EE7B7] text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 border border-[#10B981]/30">
@@ -136,46 +130,46 @@ export default function VehicleDetailPage({ params }: PageParams) {
                     <span>Comprehensive Insured</span>
                   </div>
                 </div>
-                <h1 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-white">
+                <h1 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[var(--foreground)]">
                   {vehicle.make} {vehicle.model} ({vehicle.year})
                 </h1>
-                <p className="text-xs text-[#8E95A5] flex items-center gap-1.5 mt-1">
-                  <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <p className="text-xs text-[var(--muted)] flex items-center gap-1.5 mt-1">
+                  <MapPin className="w-3.5 h-3.5 text-[var(--gold)]" />
                   {vehicle.city} • Plate: {vehicle.plateNumber}
                 </p>
               </div>
 
               {/* Rating */}
               <div className="flex sm:flex-col items-center sm:items-end gap-2 sm:gap-1">
-                <div className="flex items-center gap-1 bg-[#D4AF37]/10 px-3 py-1.5 rounded-xl border border-[#D4AF37]/25">
-                  <Star className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
-                  <span className="text-sm font-bold text-[#F3E5AB]">{vehicle.rating}</span>
+                <div className="flex items-center gap-1 bg-[var(--gold)]/10 px-3 py-1.5 rounded-xl border border-[var(--border-gold)]">
+                  <Star className="w-4 h-4 text-[var(--gold)] fill-[var(--gold)]" />
+                  <span className="text-sm font-bold text-[var(--gold)]">{vehicle.rating}</span>
                 </div>
-                <span className="text-[11px] text-[#8E95A5]">{vehicle.reviewCount} verified reviews</span>
+                <span className="text-[11px] text-[var(--muted)]">{vehicle.reviewCount} verified reviews</span>
               </div>
             </div>
 
             {/* Specs Grid */}
-            <h3 className="text-xs uppercase tracking-widest font-semibold text-[#D4AF37] mb-4">
+            <h3 className="text-xs uppercase tracking-widest font-semibold text-[var(--gold)] mb-4">
               Vehicle Specifications & Amenities
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
               {vehicle.specs.map((s, idx) => (
-                <div key={idx} className="p-3 rounded-2xl bg-white/5 border border-white/5">
-                  <span className="text-[10px] text-[#8E95A5] uppercase block">{s.label}</span>
-                  <span className="text-xs font-semibold text-white">{s.value}</span>
+                <div key={idx} className="p-3 rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--border-subtle)]">
+                  <span className="text-[10px] text-[var(--muted)] uppercase block font-medium">{s.label}</span>
+                  <span className="text-xs font-semibold text-[var(--foreground)]">{s.value}</span>
                 </div>
               ))}
             </div>
 
             {/* 4-Angle Handover Guarantee Notice */}
-            <div className="p-4 rounded-2xl bg-[#D4AF37]/5 border border-[#D4AF37]/20 flex items-start gap-3">
-              <Camera className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
+            <div className="p-4 rounded-2xl bg-[var(--gold)]/5 border border-[var(--border-gold)] flex items-start gap-3">
+              <Camera className="w-5 h-5 text-[var(--gold)] shrink-0 mt-0.5" />
               <div>
-                <h4 className="text-xs font-bold text-[#F3E5AB]">
+                <h4 className="text-xs font-bold text-[var(--gold)]">
                   Roame 4-Angle Digital Handover Guarantee
                 </h4>
-                <p className="text-xs text-[#8E95A5] mt-1 leading-relaxed">
+                <p className="text-xs text-[var(--foreground-muted)] mt-1 leading-relaxed">
                   Before driving off, you and the owner will photograph the 4 corners of this vehicle and confirm odometer/fuel on the Roame app. Your security deposit is held safely in escrow and released upon return.
                 </p>
               </div>
@@ -185,18 +179,18 @@ export default function VehicleDetailPage({ params }: PageParams) {
           {/* Owner Card */}
           <div className="glass-card-gold rounded-3xl p-6 sm:p-8 flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/20 border border-[#D4AF37]/40 flex items-center justify-center text-xl font-bold text-gold-gradient font-serif-luxury">
+              <div className="w-14 h-14 rounded-2xl bg-[var(--gold)]/20 border border-[var(--border-gold)] flex items-center justify-center text-xl font-bold text-gold-gradient font-serif-luxury">
                 DK
               </div>
               <div>
-                <h4 className="text-base font-bold text-white">{vehicle.owner.fullName}</h4>
-                <p className="text-xs text-[#D4AF37]">{vehicle.owner.role}</p>
-                <p className="text-[11px] text-[#8E95A5] mt-0.5">
+                <h4 className="text-base font-bold text-[var(--foreground)]">{vehicle.owner.fullName}</h4>
+                <p className="text-xs text-[var(--gold)] font-semibold">{vehicle.owner.role}</p>
+                <p className="text-[11px] text-[var(--muted)] mt-0.5">
                   Response rate: {vehicle.owner.responseRate} • {vehicle.owner.responseTime}
                 </p>
               </div>
             </div>
-            <div className="hidden sm:flex items-center gap-1.5 text-xs text-[#6EE7B7] bg-[#0A3A2F] px-3 py-1.5 rounded-full border border-[#10B981]/30 font-medium">
+            <div className="hidden sm:flex items-center gap-1.5 text-xs text-[#6EE7B7] bg-[#0A3A2F] px-3 py-1.5 rounded-full border border-[#10B981]/30 font-semibold">
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>Identity Verified</span>
             </div>
@@ -206,13 +200,13 @@ export default function VehicleDetailPage({ params }: PageParams) {
         {/* Right Col: Instant Booking & Escrow Calculator */}
         <div className="flex flex-col gap-6">
           <div className="glass-card-gold rounded-3xl p-6 sm:p-8 sticky top-28">
-            <div className="border-b border-white/10 pb-6 mb-6">
-              <span className="text-xs text-[#8E95A5] uppercase font-semibold">Rental Price</span>
+            <div className="border-b border-[var(--border-subtle)] pb-6 mb-6">
+              <span className="text-xs text-[var(--muted)] uppercase font-semibold">Rental Price</span>
               <div className="flex items-baseline gap-1 mt-1">
-                <span className="text-3xl font-bold text-white font-serif-luxury">
+                <span className="text-3xl font-bold text-[var(--foreground)] font-serif-luxury">
                   LKR {vehicle.pricePerDay.toLocaleString()}
                 </span>
-                <span className="text-xs text-[#8E95A5]">/ day</span>
+                <span className="text-xs text-[var(--muted)]">/ day</span>
               </div>
             </div>
 
@@ -234,57 +228,57 @@ export default function VehicleDetailPage({ params }: PageParams) {
               <form onSubmit={handleBook} className="space-y-4">
                 {/* Dates */}
                 <div>
-                  <label className="text-[10px] uppercase font-semibold text-[#8E95A5] block mb-1">
+                  <label className="text-[10px] uppercase font-semibold text-[var(--muted)] block mb-1">
                     Pickup Date
                   </label>
                   <input
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none"
+                    className="w-full bg-black/5 dark:bg-white/5 border border-[var(--border-subtle)] rounded-xl px-3.5 py-2.5 text-xs text-[var(--foreground)] focus:outline-none font-medium"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="text-[10px] uppercase font-semibold text-[#8E95A5] block mb-1">
+                  <label className="text-[10px] uppercase font-semibold text-[var(--muted)] block mb-1">
                     Return Date
                   </label>
                   <input
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none"
+                    className="w-full bg-black/5 dark:bg-white/5 border border-[var(--border-subtle)] rounded-xl px-3.5 py-2.5 text-xs text-[var(--foreground)] focus:outline-none font-medium"
                     required
                   />
                 </div>
 
                 {/* Price Breakdown */}
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2 text-xs">
-                  <div className="flex justify-between text-[#8E95A5]">
+                <div className="p-4 rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--border-subtle)] space-y-2 text-xs">
+                  <div className="flex justify-between text-[var(--muted)]">
                     <span>LKR {vehicle.pricePerDay.toLocaleString()} × {diffDays} days</span>
-                    <span className="text-white font-medium">LKR {rentalTotal.toLocaleString()}</span>
+                    <span className="text-[var(--foreground)] font-semibold">LKR {rentalTotal.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between text-[#8E95A5]">
+                  <div className="flex justify-between text-[var(--muted)]">
                     <span className="flex items-center gap-1">
-                      <Lock className="w-3 h-3 text-[#D4AF37]" />
+                      <Lock className="w-3 h-3 text-[var(--gold)]" />
                       Escrow Deposit (Refundable)
                     </span>
-                    <span className="text-[#F3E5AB] font-medium">
+                    <span className="text-[var(--gold)] font-semibold">
                       LKR {vehicle.securityDeposit.toLocaleString()}
                     </span>
                   </div>
-                  <div className="pt-2 border-t border-white/10 flex justify-between text-sm font-bold text-white">
+                  <div className="pt-2 border-t border-[var(--border-subtle)] flex justify-between text-sm font-bold text-[var(--foreground)]">
                     <span>Total Hold</span>
-                    <span className="text-gold-gradient font-serif-luxury text-base">
+                    <span className="text-gold-gradient font-serif-luxury text-base font-bold">
                       LKR {grandTotal.toLocaleString()}
                     </span>
                   </div>
                 </div>
 
                 {/* 6-hour response guarantee */}
-                <div className="flex items-center gap-2 text-[11px] text-[#8E95A5] pt-1">
-                  <Clock className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <div className="flex items-center gap-2 text-[11px] text-[var(--muted)] pt-1">
+                  <Clock className="w-3.5 h-3.5 text-[var(--gold)]" />
                   <span>Host has a 6-hour deadline to accept or auto-decline</span>
                 </div>
 

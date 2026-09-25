@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n/context";
+import { ThemeProvider } from "@/lib/theme/theme-context";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
@@ -50,13 +51,16 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${plusJakartaSans.variable} ${cormorantGaramond.variable} dark`}
+      suppressHydrationWarning
     >
-      <body className="bg-[#08090D] text-[#F5F6FA] min-h-screen flex flex-col antialiased selection:bg-[#D4AF37] selection:text-[#08090D]">
-        <I18nProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </I18nProvider>
+      <body className="min-h-screen flex flex-col antialiased selection:bg-[#D4AF37] selection:text-[#08090D] bg-[var(--background)] text-[var(--foreground)]">
+        <ThemeProvider>
+          <I18nProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslation } from "@/lib/i18n/context";
-import { ShieldAlert, Camera, UserCheck, LockKeyhole, FileCheck, CheckCircle, Scale } from "lucide-react";
+import { ShieldAlert, Camera, UserCheck, LockKeyhole, Scale } from "lucide-react";
 
 export function TrustSection() {
   const { t } = useTranslation();
@@ -45,18 +45,18 @@ export function TrustSection() {
   return (
     <section id="trust" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
       {/* Background Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-72 bg-[#D4AF37]/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-72 bg-[var(--gold)]/5 rounded-full blur-[160px] pointer-events-none" />
 
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-16 relative z-10">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-semibold text-[#F3E5AB] mb-4">
-          <Scale className="w-3.5 h-3.5 text-[#D4AF37]" />
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--gold)]/10 border border-[var(--border-gold)] text-xs font-semibold text-[var(--gold)] mb-4">
+          <Scale className="w-3.5 h-3.5 text-[var(--gold)]" />
           {t("valueProps.tag")}
         </span>
-        <h2 className="font-serif-luxury text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
+        <h2 className="font-serif-luxury text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--foreground)] tracking-tight mb-4">
           {t("valueProps.title")}
         </h2>
-        <p className="text-sm sm:text-base text-[#8E95A5]">
+        <p className="text-sm sm:text-base text-[var(--foreground-muted)]">
           Roame is built from the ground up as a trusted mediator. We engineer safety directly into our software, protecting both Sri Lankan vehicle owners and travelers.
         </p>
       </div>
@@ -72,21 +72,21 @@ export function TrustSection() {
             >
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#D4AF37]/20 to-black border border-[#D4AF37]/40 flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-[#D4AF37]" />
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--gold)]/20 to-[var(--surface-raised)] border border-[var(--border-gold)] flex items-center justify-center">
+                    <Icon className="w-6 h-6 text-[var(--gold)]" />
                   </div>
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[#D4AF37] bg-[#D4AF37]/10 px-3 py-1 rounded-full border border-[#D4AF37]/20">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--gold)] bg-[var(--gold)]/10 px-3 py-1 rounded-full border border-[var(--border-gold)]">
                     {pillar.tag}
                   </span>
                 </div>
 
-                <h3 className="font-serif-luxury text-2xl font-bold text-white mb-2">
+                <h3 className="font-serif-luxury text-2xl font-bold text-[var(--foreground)] mb-2">
                   {pillar.title}
                 </h3>
-                <p className="text-xs text-[#C4C8D4] leading-relaxed mb-4 font-normal">
+                <p className="text-xs text-[var(--foreground-muted)] leading-relaxed mb-4 font-normal">
                   {pillar.desc}
                 </p>
-                <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 text-xs text-[#8E95A5] leading-relaxed">
+                <div className="p-4 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] border border-[var(--border-subtle)] text-xs text-[var(--muted)] leading-relaxed">
                   {pillar.detail}
                 </div>
               </div>

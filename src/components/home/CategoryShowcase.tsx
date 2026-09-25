@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useTranslation } from "@/lib/i18n/context";
-import { Car, Sparkles, Bike, ArrowUpRight, ShieldCheck, Check, Fuel, UserCheck } from "lucide-react";
+import { Car, Sparkles, Bike, ArrowUpRight, Check } from "lucide-react";
 
 export function CategoryShowcase() {
   const { t } = useTranslation();
@@ -70,16 +70,16 @@ export function CategoryShowcase() {
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
         <div>
-          <span className="text-xs uppercase tracking-widest font-semibold text-[#D4AF37] block mb-2">
+          <span className="text-xs uppercase tracking-widest font-semibold text-[var(--gold)] block mb-2">
             Tailored Fleets
           </span>
-          <h2 className="font-serif-luxury text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
+          <h2 className="font-serif-luxury text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--foreground)] tracking-tight">
             Curated For Every Island Occasion
           </h2>
         </div>
         <Link
           href="/vehicles"
-          className="inline-flex items-center gap-2 text-sm text-[#F3E5AB] hover:text-[#D4AF37] font-medium transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-[var(--gold)] hover:brightness-125 font-semibold transition-all"
         >
           <span>Explore All 25 Districts</span>
           <ArrowUpRight className="w-4 h-4" />
@@ -101,11 +101,11 @@ export function CategoryShowcase() {
                   className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                   style={{ backgroundImage: `url('${cat.image}')` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#10121A] via-transparent to-black/40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--surface)] via-transparent to-black/40" />
 
                 {/* Badge Tag */}
                 <div className="absolute top-4 left-4">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-[#D4AF37]/30 text-[#F3E5AB]">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-[#D4AF37]/30 text-[#F5E8BA]">
                     <Icon className="w-3.5 h-3.5 text-[#D4AF37]" />
                     {cat.badge}
                   </span>
@@ -121,15 +121,15 @@ export function CategoryShowcase() {
               </div>
 
               {/* Card Body */}
-              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between bg-[#10121A]">
+              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between bg-[var(--surface)]">
                 <div>
-                  <h3 className="font-serif-luxury text-2xl font-bold text-white mb-1">
+                  <h3 className="font-serif-luxury text-2xl font-bold text-[var(--foreground)] mb-1">
                     {cat.title}
                   </h3>
-                  <p className="text-xs font-medium text-[#D4AF37] mb-3">
+                  <p className="text-xs font-semibold text-[var(--gold)] mb-3">
                     {cat.tagline}
                   </p>
-                  <p className="text-xs text-[#8E95A5] leading-relaxed mb-6 font-normal">
+                  <p className="text-xs text-[var(--foreground-muted)] leading-relaxed mb-6 font-normal">
                     {cat.desc}
                   </p>
 
@@ -138,9 +138,9 @@ export function CategoryShowcase() {
                     {cat.features.map((feat, idx) => (
                       <li
                         key={idx}
-                        className="text-xs text-[#C4C8D4] flex items-start gap-2.5"
+                        className="text-xs text-[var(--foreground-muted)] flex items-start gap-2.5"
                       >
-                        <Check className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
+                        <Check className="w-4 h-4 text-[var(--gold)] shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -150,7 +150,7 @@ export function CategoryShowcase() {
                 {/* Card Action Link */}
                 <Link
                   href={cat.link}
-                  className="w-full py-3 rounded-xl bg-white/5 hover:bg-[#D4AF37] text-white hover:text-[#08090D] border border-white/10 hover:border-[#D4AF37] text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300"
+                  className="w-full py-3 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-[#D4AF37] text-[var(--foreground)] hover:text-[#08090D] border border-[var(--border-subtle)] hover:border-[#D4AF37] text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300"
                 >
                   <span>Browse {cat.title}</span>
                   <ArrowUpRight className="w-4 h-4" />
