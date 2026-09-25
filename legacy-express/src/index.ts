@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import authRoutes from "./routes/auth.routes";
+import vehicleRoutes from "./routes/vehicle.routes";
 
 const app = express();
 
@@ -13,9 +14,12 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
-
+app.use("/vehicles", vehicleRoutes);
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
   console.log(`✅ Roame API listening on http://localhost:${PORT}`);
 });
+
+
+// ...

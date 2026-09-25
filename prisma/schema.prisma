@@ -1,0 +1,353 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  CUSTOMER
+  OWNER
+  ADMIN
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum Language {
+  EN
+  SI
+  TA
+}
+
+model User {
+  id                String             @id @default(uuid())
+  role              UserRole           @default(CUSTOMER)
+
+  fullName          String
+  email             String             @unique
+  phoneNumber       String?            @unique
+  passwordHash      String?
+
+  profilePhotoUrl   String?
+  dateOfBirth       DateTime?
+  address           String?
+
+  nicNumber         String?
+  nicFrontUrl       String?
+  nicBackUrl        String?
+
+  drivingLicenseNumber   String?
+  drivingLicenseFrontUrl String?
+  drivingLicenseBackUrl  String?
+
+  verificationStatus VerificationStatus @default(PENDING)
+  riskScore          Int                @default(0)
+  isBlacklisted      Boolean            @default(false)
+  preferredLanguage  Language           @default(EN)
+
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  vehicles              Vehicle[]
+  bookingsAsCustomer    Booking[]          @relation("CustomerBookings")
+  bookingsAsOwner       Booking[]          @relation("OwnerBookings")
+  claimsFiled           DamageClaim[]      @relation("ClaimantUser")
+  claimsReceived        DamageClaim[]      @relation("RespondentUser")
+  flagsGiven            BlacklistFlag[]    @relation("FlaggerUser")
+  flagsReceived         BlacklistFlag[]    @relation("TargetFlaggedUser")
+  reviewsGiven          Review[]           @relation("ReviewerUser")
+  reviewsReceived       Review[]           @relation("RevieweeUser")
+}
+
+enum VehicleCategory {
+  CAR_VAN
+  LUXURY_WEDDING
+  MOTORBIKE
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  HYBRID
+  ELECTRIC
+}
+
+enum PricingMode {
+  PER_DAY
+  PER_WEEK
+  PER_MONTH
+  PER_KM_PACKAGE
+  PER_EVENT
+}
+
+enum FuelPolicy {
+  FULL_TO_FULL
+  OWNER_PROVIDES
+}
+
+enum InsuranceType {
+  COMPREHENSIVE
+  THIRD_PARTY
+}
+
+enum VehicleStatus {
+  PENDING_REVIEW
+  ACTIVE
+  SUSPENDED
+  INACTIVE
+}
+
+model Vehicle {
+  id                   String          @id @default(uuid())
+  ownerId              String
+  owner                User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  category             VehicleCategory
+
+  make                 String
+  model                String
+  year                 Int
+
+  plateNumber          String
+  transmission         Transmission?
+  fuelType             FuelType?
+  seats                Int?
+
+  locationLat          Float?
+  locationLng          Float?
+  locationDistrict     String?
+  locationCity         String?
+  locationAddress      String?
+
+  pricingMode          PricingMode
+  pricePerDay          Float?
+  kmIncludedPerDay     Int?
+  pricePerExtraKm      Float?
+  fuelPolicy           FuelPolicy?
+  securityDeposit      Float           @default(0)
+
+  // Luxury & Wedding specific
+  chauffeurIncluded    Boolean?
+  decorationAvailable  Boolean?
+  minimumBookingHours  Int?
+
+  // Motorbike specific
+  helmetsIncluded      Int?
+  engineCC             Int?
+  requiredLicenseClass String?
+  minimumRiderAge      Int?
+
+  // Verification & Mandatory Comprehensive Insurance
+  revenueLicenseDocUrl      String?
+  vehicleRegistrationDocUrl String?
+  insuranceDocUrl           String?
+  insuranceExpiryDate       DateTime?
+  insuranceType             InsuranceType?
+
+  // Photos (PostgreSQL native array)
+  photos               String[]        @default([])
+
+  status               VehicleStatus   @default(PENDING_REVIEW)
+  averageRating        Float?
+  reviewCount          Int             @default(0)
+
+  bookings             Booking[]
+  reviews              Review[]
+
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+}
+
+enum BookingStatus {
+  REQUESTED
+  ACCEPTED
+  DECLINED
+  EXPIRED
+  CANCELLED
+  PICKUP_INSPECTION
+  ACTIVE
+  RETURN_INSPECTION
+  COMPLETED
+  DISPUTED
+}
+
+model Booking {
+  id                    String            @id @default(uuid())
+  bookingReference      String            @unique
+  customerId            String
+  customer              User              @relation("CustomerBookings", fields: [customerId], references: [id])
+  ownerId               String
+  owner                 User              @relation("OwnerBookings", fields: [ownerId], references: [id])
+  vehicleId             String
+  vehicle               Vehicle           @relation(fields: [vehicleId], references: [id])
+
+  startDate             DateTime
+  endDate               DateTime
+  pickupLocation        String?
+  returnLocation        String?
+
+  totalDays             Int
+  totalPrice            Float
+  securityDeposit       Float
+
+  status                BookingStatus     @default(REQUESTED)
+  ownerResponseDeadline DateTime?
+  cancellationReason    String?
+
+  isDepositHeld         Boolean           @default(false)
+  isDepositReleased     Boolean           @default(false)
+
+  handovers             HandoverRecord[]
+  damageClaim           DamageClaim?
+  paymentTransactions   PaymentTransaction[]
+  reviews               Review[]
+
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+}
+
+enum HandoverType {
+  PICKUP
+  RETURN
+}
+
+model HandoverRecord {
+  id                   String       @id @default(uuid())
+  bookingId            String
+  booking              Booking      @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  type                 HandoverType
+
+  frontPhotoUrl        String
+  backPhotoUrl         String
+  leftPhotoUrl         String
+  rightPhotoUrl        String
+  dashboardPhotoUrl    String?
+
+  odometerReading      Float?
+  fuelLevelPercent     Int?
+  notes                String?
+
+  customerConfirmed    Boolean      @default(false)
+  customerConfirmedAt  DateTime?
+  ownerConfirmed       Boolean      @default(false)
+  ownerConfirmedAt     DateTime?
+
+  createdAt            DateTime     @default(now())
+}
+
+enum ClaimStatus {
+  OPEN
+  ACCEPTED_BY_RENTER
+  UNDER_MEDIATION
+  RESOLVED
+  REJECTED
+}
+
+model DamageClaim {
+  id                    String       @id @default(uuid())
+  bookingId             String       @unique
+  booking               Booking      @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  claimantId            String
+  claimant              User         @relation("ClaimantUser", fields: [claimantId], references: [id])
+  respondentId          String
+  respondent            User         @relation("RespondentUser", fields: [respondentId], references: [id])
+
+  status                ClaimStatus  @default(OPEN)
+  damageDescription     String
+  evidencePhotos        String[]     @default([])
+  estimatedRepairCost   Float
+  insuranceExcessAmount Float
+  amountChargedToRenter Float?
+  resolutionNotes       String?
+  deadlineDate          DateTime
+
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+}
+
+enum FlagReason {
+  SUSPECTED_FRAUD
+  NO_SHOW
+  DAMAGE_DISPUTE_UNRESOLVED
+  FAKE_DOCUMENTS
+  RECKLESS_DRIVING
+  OTHER
+}
+
+model BlacklistFlag {
+  id           String     @id @default(uuid())
+  flaggerId    String
+  flagger      User       @relation("FlaggerUser", fields: [flaggerId], references: [id])
+  targetUserId String
+  targetUser   User       @relation("TargetFlaggedUser", fields: [targetUserId], references: [id])
+
+  bookingId    String?
+  reason       FlagReason
+  details      String
+  evidenceUrl  String?
+
+  createdAt    DateTime   @default(now())
+}
+
+model Review {
+  id                  String   @id @default(uuid())
+  bookingId           String
+  booking             Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  vehicleId           String?
+  vehicle             Vehicle? @relation(fields: [vehicleId], references: [id])
+  reviewerId          String
+  reviewer            User     @relation("ReviewerUser", fields: [reviewerId], references: [id])
+  revieweeId          String
+  reviewee            User     @relation("RevieweeUser", fields: [revieweeId], references: [id])
+
+  rating              Int
+  cleanlinessRating   Int?
+  communicationRating Int?
+  conditionRating     Int?
+  comment             String
+
+  createdAt           DateTime @default(now())
+}
+
+enum PaymentType {
+  RENTAL_FEE
+  SECURITY_DEPOSIT_HOLD
+  SECURITY_DEPOSIT_RELEASE
+  DAMAGE_EXCESS_CHARGE
+  REFUND
+}
+
+enum PaymentStatus {
+  PENDING
+  AUTHORIZED
+  CAPTURED
+  REFUNDED
+  FAILED
+}
+
+model PaymentTransaction {
+  id                 String        @id @default(uuid())
+  bookingId          String
+  booking            Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  amount             Float
+  currency           String        @default("LKR")
+  provider           String        @default("PAYHERE")
+  providerPaymentId  String?
+  type               PaymentType
+  status             PaymentStatus @default(PENDING)
+
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+}
